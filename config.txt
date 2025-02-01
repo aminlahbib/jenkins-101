@@ -1,9 +1,13 @@
- docker build -t myjenkins-blueocean .  
+docker build -t my-jenkins .
 
-docker run --name jenkins-blueocean --restart=on-failure --detach \
-  --network jenkins --env DOCKER_HOST=tcp://docker:2376 \
-  --env DOCKER_CERT_PATH=/certs/client --env DOCKER_TLS_VERIFY=1 \
-  --publish 9090:9090 --publish 50000:50000 \
-  --volume jenkins-data:/var/jenkins_home \
-  --volume jenkins-docker-certs:/certs/client:ro \
-  myjenkins-blueocean
+docker compose up -d
+
+docker compose down
+
+Removing Jenkins
+docker compose down --volumes --rmi all 
+ 
+changes
+docker-compose down
+docker build -t my-jenkins .
+docker-compose up -d

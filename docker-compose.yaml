@@ -15,16 +15,15 @@ services:
         aliases:
           - docker
     command: --storage-driver overlay2
-
   my-jenkins:
     image: my-jenkins
     container_name: my-jenkins
     restart: on-failure
+    user: root
     environment:
-      - DOCKER_HOST=tcp://docker:2376
-      - DOCKER_CERT_PATH=/certs/client
-      - DOCKER_TLS_VERIFY=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
       - jenkins-data:/var/jenkins_home
       - jenkins-docker-certs:/certs/client:ro
     ports:
